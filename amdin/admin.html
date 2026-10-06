@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WordPress Theme Conversion Blueprint</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --panel: #161b22;
+        --panel-alt: #1f2937;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --line: rgba(255,255,255,0.08);
+        --accent: #64ffda;
+        --accent-2: #7dd3fc;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --shadow: 0 20px 40px rgba(0,0,0,0.28);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .container {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        background: rgba(13,17,23,0.9);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+        z-index: 20;
+      }
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--text);
+        text-decoration: none;
+        opacity: 0.8;
+      }
+      nav a:hover,
+      nav a:focus-visible { opacity: 1; }
+      .section {
+        padding: 48px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      h1, h2, h3 {
+        line-height: 1.2;
+        margin-top: 0;
+      }
+      h1 { font-size: clamp(2rem, 4vw, 3.4rem); }
+      h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+      .card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px 20px;
+        box-shadow: var(--shadow);
+      }
+      pre {
+        overflow-x: auto;
+        background: #0b1220;
+        color: #dbeafe;
+        padding: 18px 20px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      code {
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.92rem;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(100,255,218,0.09);
+        color: var(--accent);
+        border: 1px solid rgba(100,255,218,0.24);
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .muted { color: var(--muted); }
+      .note {
+        background: rgba(251,191,36,0.08);
+        border-left: 4px solid var(--warning);
+        padding: 14px 16px;
+        border-radius: 12px;
+        color: #fef3c7;
+      }
+      .danger {
+        background: rgba(248,113,113,0.08);
+        border-left: 4px solid var(--danger);
+        padding: 12px 16px;
+        border-radius: 12px;
+        color: #fecaca;
+      }
+      @media (max-width: 640px) {
+        nav ul { gap: 12px; }
+        .section { padding: 32px 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container" style="display:flex;justify-content:space-between;align-items:center;min-height:64px;">
+        <div><strong>Theme Blueprint</strong></div>
+        <nav aria-label="Theme structure navigation">
+          <ul>
+            <li><a href="#analysis">Analysis</a></li>
+            <li><a href="#structure">Structure</a></li>
+            <li><a href="#functions">functions.php</a></li>
+            <li><a href="#templates">Templates</a></li>
+            <li><a href="#install">Install</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section class="section" id="analysis">
+        <div class="container">
+          <span class="badge">Project Analysis</span>
+          <h1>Portfolio Website to WordPress Theme Conversion</h1>
+          <p class="muted">This file is the conversion blueprint for the requested custom WordPress theme. It keeps the existing portfolio layout and content sections while making the website editable through WordPress admin.</p>
+          <div class="grid">
+            <div class="card">
+              <h3>Core sections to preserve</h3>
+              <ul>
+                <li>Home / Hero</li>
+                <li>About</li>
+                <li>Skills</li>
+                <li>Projects / Portfolio</li>
+                <li>Testimonials</li>
+                <li>Contact</li>
+                <li>Footer + social links</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Key CMS requirements</h3>
+              <ul>
+                <li>Editable hero, about, contact and footer content</li>
+                <li>Projects as custom post type</li>
+                <li>Testimonials as custom post type</li>
+                <li>WP menu support</li>
+                <li>Responsive and accessible navigation</li>
+                <li>Secure, sanitized form handling</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Design preservation</h3>
+              <ul>
+                <li>Keep original CSS and layout</li>
+                <li>Keep animated sections and hover states</li>
+                <li>Keep hamburger menu behavior</li>
+                <li>Keep current image assets and spacing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="structure">
+        <div class="container">
+          <span class="badge">Theme Structure</span>
+          <h2>Recommended WP theme folder</h2>
+          <pre><code>amdin-theme/
+├── style.css
+├── functions.php
+├── header.php
+├── footer.php
+├── index.php
+├── front-page.php
+├── page.php
+├── single.php
+├── archive.php
+├── 404.php
+├── page-about.php
+├── page-contact.php
+├── inc/
+│   ├── class-theme-settings.php
+│   ├── theme-options.php
+│   └── customizer.php
+├── template-parts/
+│   ├── hero.php
+│   ├── about.php
+│   ├── skills.php
+│   ├── portfolio.php
+│   ├── testimonials.php
+│   └── contact.php
+├── assets/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── fonts/
+├── screenshot.png
+└── README.txt</code></pre>
+        </div>
+      </section>
+
+      <section class="section" id="functions">
+        <div class="container">
+          <span class="badge">functions.php</span>
+          <h2>Core theme setup, menu registration, CPTs, customizer and security</h2>
+          <pre><code>&lt;?php
+/**
+ * Theme setup and functionality.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+function amdin_theme_setup() {
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'custom-logo', array(
+        'height'      =&gt; 80,
+        'width'       =&gt; 220,
+        'flex-height' =&gt; true,
+        'flex-width'  =&gt; true,
+    ) );
+    add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
+    add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'wp-block-styles' );
+    add_theme_support( 'editor-styles' );
+    add_theme_support( 'align-wide' );
+
+    register_nav_menus(
+        array(
+            'primary' =&gt; __( 'Primary Menu', 'amdin' ),
+            'footer'  =&gt; __( 'Footer Menu', 'amdin' ),
+        )
+    );
+}
+add_action( 'after_setup_theme', 'amdin_theme_setup' );
+
+function amdin_theme_enqueue_assets() {
+    $theme_uri = get_template_directory_uri();
+
+    wp_enqueue_style( 'amdin-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) );
+
+    wp_enqueue_script( 'amdin-main', $theme_uri . '/assets/js/main.js', array(), wp_get_theme()->get( 'Version' ), true );
+    wp_enqueue_script( 'amdin-menu', $theme_uri . '/assets/js/menu.js', array(), wp_get_theme()->get( 'Version' ), true );
+}
+add_action( 'wp_enqueue_scripts', 'amdin_theme_enqueue_assets' );
+
+function amdin_register_project_post_type() {
+    $labels = array(
+        'name'                  =&gt; __( 'Projects', 'amdin' ),
+        'singular_name'         =&gt; __( 'Project', 'amdin' ),
+        'add_new'               =&gt; __( 'Add New Project', 'amdin' ),
+        'add_new_item'          =&gt; __( 'Add New Project', 'amdin' ),
+        'edit_item'             =&gt; __( 'Edit Project', 'amdin' ),
+        'new_item'              =&gt; __( 'New Project', 'amdin' ),
+        'view_item'             =&gt; __( 'View Project', 'amdin' ),
+        'search_items'          =&gt; __( 'Search Projects', 'amdin' ),
+        'not_found'             =&gt; __( 'No projects found', 'amdin' ),
+        'not_found_in_trash'    =&gt; __( 'No projects found in Trash', 'amdin' ),
+        'menu_name'             =&gt; __( 'Projects', 'amdin' ),
+    );
+
+    $args = array(
+        'labels'              =&gt; $labels,
+        'public'              =&gt; true,
+        'has_archive'         =&gt; false,
+        'menu_icon'           =&gt; 'dashicons-portfolio',
+        'supports'            =&gt; array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields' ),
+        'rewrite'             =&gt; array( 'slug' =&gt; 'project' ),
+        'show_in_rest'        =&gt; true,
+        'menu_position'       =&gt; 21,
+        'capability_type'     =&gt; 'post',
+        'taxonomies'          =&gt; array( 'category' ),
+    );
+
+    register_post_type( 'project', $args );
+}
+add_action( 'init', 'amdin_register_project_post_type' );
+
+function amdin_register_testimonial_post_type() {
+    $labels = array(
+        'name'               =&gt; __( 'Testimonials', 'amdin' ),
+        'singular_name'      =&gt; __( 'Testimonial', 'amdin' ),
+        'add_new'            =&gt; __( 'Add New Testimonial', 'amdin' ),
+        'edit_item'          =&gt; __( 'Edit Testimonial', 'amdin' ),
+        'view_item'          =&gt; __( 'View Testimonial', 'amdin' ),
+        'search_items'       =&gt; __( 'Search Testimonials', 'amdin' ),
+        'not_found'          =&gt; __( 'No testimonials found', 'amdin' ),
+        'menu_name'          =&gt; __( 'Testimonials', 'amdin' ),
+    );
+
+    $args = array(
+        'labels'            =&gt; $labels,
+        'public'            =&gt; true,
+        'has_archive'       =&gt; false,
+        'menu_icon'         =&gt; 'dashicons-format-quote',
+        'supports'          =&gt; array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
+        'rewrite'           =&gt; array( 'slug' =&gt; 'testimonial' ),
+        'show_in_rest'      =&gt; true,
+        'menu_position'     =&gt; 22,
+    );
+
+    register_post_type( 'testimonial', $args );
+}
+add_action( 'init', 'amdin_register_testimonial_post_type' );
+
+function amdin_get_theme_option( $key, $default = '' ) {
+    $options = get_option( 'amdin_theme_options', array() );
+    return isset( $options[ $key ] ) ? $options[ $key ] : $default;
+}
+
+function amdin_theme_settings_page() {
+    add_menu_page(
+        __( 'Theme Settings', 'amdin' ),
+        __( 'Theme Settings', 'amdin' ),
+        'manage_options',
+        'amdin-theme-settings',
+        'amdin_theme_settings_render',
+        'dashicons-admin-generic',
+        80
+    );
+}
+add_action( 'admin_menu', 'amdin_theme_settings_page' );
+
+function amdin_theme_settings_render() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    if ( isset( $_POST['amdin_theme_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['amdin_theme_nonce'] ) ), 'amdin_theme_save' ) ) {
+        $options = array();
+        $fields = array(
+            'hero_title',
+            'hero_desc',
+            'hero_primary_label',
+            'hero_primary_url',
+            'hero_secondary_label',
+            'hero_secondary_url',
+            'about_title',
+            'about_desc',
+            'email',
+            'phone',
+            'address',
+            'maps_url',
+            'linkedin',
+            'github',
+            'instagram',
+            'facebook',
+            'youtube',
+            'twitter',
+            'copyright',
+            'footer_text',
+            'ga_measurement_id',
+        );
+
+        foreach ( $fields as $field ) {
+            $options[ $field ] = isset( $_POST[ $field ] ) ? sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) : '';
+        }
+
+        update_option( 'amdin_theme_options', $options );
+        echo '&lt;div class="notice notice-success is-dismissible"&gt;&lt;p&gt;' . esc_html__( 'Settings saved.', 'amdin' ) . '&lt;/p&gt;&lt;/div&gt;';
+    }
+
+    $options = amdin_get_theme_option( 'hero_title', 'Professional Front-End Developer' );
+    $email   = amdin_get_theme_option( 'email', '' );
+    ?>
+    &lt;div class="wrap"&gt;
+        &lt;h1&gt;<?php echo esc_html__( 'Theme Settings', 'amdin' ); ?>&lt;/h1&gt;
+        &lt;form method="post"&gt;
+            &lt;?php wp_nonce_field( 'amdin_theme_save', 'amdin_theme_nonce' ); ?&gt;
+            &lt;table class="form-table" role="presentation"&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Hero Title&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="hero_title" value="&lt;?php echo esc_attr( $options ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Hero Description&lt;/th&gt;&lt;td&gt;&lt;textarea class="large-text" rows="4" name="hero_desc"&gt;&lt;?php echo esc_textarea( amdin_get_theme_option( 'hero_desc', '' ) ); ?&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Primary Button Label&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="hero_primary_label" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'hero_primary_label', 'Hire Me' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Primary Button URL&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="hero_primary_url" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'hero_primary_url', '#' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Secondary Button Label&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="hero_secondary_label" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'hero_secondary_label', 'My Work' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Secondary Button URL&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="hero_secondary_url" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'hero_secondary_url', '#portfolio' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;About Title&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="about_title" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'about_title', 'About Me' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;About Description&lt;/th&gt;&lt;td&gt;&lt;textarea class="large-text" rows="5" name="about_desc"&gt;&lt;?php echo esc_textarea( amdin_get_theme_option( 'about_desc', '' ) ); ?&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Email&lt;/th&gt;&lt;td&gt;&lt;input type="email" class="regular-text" name="email" value="&lt;?php echo esc_attr( $email ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Phone&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="phone" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'phone', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Address&lt;/th&gt;&lt;td&gt;&lt;textarea class="large-text" rows="3" name="address"&gt;&lt;?php echo esc_textarea( amdin_get_theme_option( 'address', '' ) ); ?&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Maps URL&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="maps_url" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'maps_url', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;LinkedIn&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="linkedin" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'linkedin', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;GitHub&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="github" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'github', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Instagram&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="instagram" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'instagram', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Facebook&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="facebook" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'facebook', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;YouTube&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="youtube" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'youtube', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;X / Twitter&lt;/th&gt;&lt;td&gt;&lt;input type="url" class="regular-text" name="twitter" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'twitter', '' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Footer Copyright&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="copyright" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'copyright', '© 2025 All rights reserved.' ) ); ?&gt;" /&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;Footer Text&lt;/th&gt;&lt;td&gt;&lt;textarea class="large-text" rows="4" name="footer_text"&gt;&lt;?php echo esc_textarea( amdin_get_theme_option( 'footer_text', '' ) ); ?&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;th scope="row"&gt;GA Measurement ID&lt;/th&gt;&lt;td&gt;&lt;input type="text" class="regular-text" name="ga_measurement_id" value="&lt;?php echo esc_attr( amdin_get_theme_option( 'ga_measurement_id', '' ) ); ?&gt;" placeholder="G-XXXXXXX" /&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;/table&gt;
+            &lt;?php submit_button(); ?&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;?php
+}
+
+function amdin_theme_add_ga() {
+    $id = amdin_get_theme_option( 'ga_measurement_id', '' );
+    if ( empty( $id ) ) {
+        return;
+    }
+    ?>
+    &lt;script async src="https://www.googletagmanager.com/gtag/js?id=&lt;?php echo esc_attr( $id ); ?&gt;"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '&lt;?php echo esc_js( $id ); ?&gt;');
+    &lt;/script&gt;
+    &lt;?php
+}
+add_action( 'wp_head', 'amdin_theme_add_ga', 20 );
+
+function amdin_contact_form_handler() {
+    if ( ! isset( $_POST['amdin_contact_nonce'] ) ) {
+        return;
+    }
+
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['amdin_contact_nonce'] ) ), 'amdin_contact_form' ) ) {
+        return;
+    }
+
+    $name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+    $email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+    $subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
+    $message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
+
+    if ( empty( $name ) || empty( $email ) || empty( $subject ) || empty( $message ) ) {
+        return;
+    }
+
+    if ( ! is_email( $email ) ) {
+        return;
+    }
+
+    $to = get_option( 'admin_email' );
+    $body = "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message";
+
+    $headers = array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $email );
+    wp_mail( $to, $subject, $body, $headers );
+}
+add_action( 'init', 'amdin_contact_form_handler' );
+
+function amdin_get_social_links() {
+    $links = array();
+    $keys = array( 'linkedin', 'github', 'instagram', 'facebook', 'youtube', 'twitter' );
+
+    foreach ( $keys as $key ) {
+        $val = amdin_get_theme_option( $key, '' );
+        if ( ! empty( $val ) ) {
+            $links[ $key ] = esc_url( $val );
+        }
+    }
+
+    return $links;
+}
+
+function amdin_excerpt( $text, $limit = 120 ) {
+    $text = wp_strip_all_tags( $text );
+    if ( strlen( $text ) &lt;= $limit ) {
+        return $text;
+    }
+    return substr( $text, 0, $limit ) . '...';
+}
+
+function amdin_theme_body_classes( $classes ) {
+    if ( is_front_page() ) {
+        $classes[] = 'home-page';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'amdin_theme_body_classes' );
+
+</code></pre>
+        </div>
+      </section>
+
+      <section class="section" id="templates">
+        <div class="container">
+          <span class="badge">Templates</span>
+          <h2>Header, footer and homepage templates</h2>
+
+          <h3>header.php</h3>
+          <pre><code>&lt;?php
+/**
+ * Header template.
+ */
+?><!DOCTYPE html>
+&lt;html &lt;?php language_attributes(); ?&gt;&gt;
+<head>
+    &lt;meta charset="&lt;?php bloginfo( 'charset' ); ?&gt;" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+    &lt;?php wp_head(); ?&gt;
+</head>
+<body &lt;?php body_class(); ?&gt;&gt;
+&lt;?php wp_body_open(); ?&gt;
+&lt;header class="site-header"&gt;
+    &lt;div class="container header-inner"&gt;
+        &lt;div class="logo-wrap"&gt;
+            &lt;?php if ( has_custom_logo() ) : ?&gt;
+                &lt;?php the_custom_logo(); ?&gt;
+            &lt;?php else : ?&gt;
+                &lt;a href="&lt;?php echo esc_url( home_url( '/' ) ); ?&gt;" class="brand"&gt;
+                    &lt;?php bloginfo( 'name' ); ?&gt;
+                &lt;/a&gt;
+            &lt;?php endif; ?&gt;
+        &lt;/div&gt;
+
+        &lt;nav class="main-nav" aria-label="Primary navigation"&gt;
+            &lt;?php
+            wp_nav_menu(
+                array(
+                    'theme_location' =&gt; 'primary',
+                    'container'      =&gt; false,
+                    'menu_class'     =&gt; 'main-menu',
+                    'fallback_cb'    =&gt; false,
+                    'depth'          =&gt; 2,
+                )
+            );
+            ?&gt;
+        &lt;/nav&gt;
+
+        &lt;button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+            &lt;span&gt;&lt;/span&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div id="mobile-menu" class="mobile-menu" hidden&gt;
+        &lt;?php
+        wp_nav_menu(
+            array(
+                'theme_location' =&gt; 'primary',
+                'container'      =&gt; false,
+                'menu_class'     =&gt; 'mobile-menu-list',
+                'fallback_cb'    =&gt; false,
+            )
+        );
+        ?&gt;
+    &lt;/div&gt;
+&lt;/header&gt;
+</code></pre>
+
+          <h3>footer.php</h3>
+          <pre><code>&lt;?php
+/**
+ * Footer template.
+ */
+?&gt;
+&lt;footer class="site-footer"&gt;
+    &lt;div class="container footer-grid"&gt;
+        &lt;div class="footer-brand"&gt;
+            &lt;h3&gt;&lt;?php bloginfo( 'name' ); ?&gt;&lt;/h3&gt;
+            &lt;p&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'footer_text', '' ) ); ?&gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class="footer-contact"&gt;
+            &lt;h3&gt;Contact&lt;/h3&gt;
+            &lt;p&gt;&lt;a href="mailto:&lt;?php echo esc_attr( amdin_get_theme_option( 'email', '' ) ); ?&gt;"&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'email', '' ) ); ?&gt;&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;a href="tel:&lt;?php echo esc_attr( amdin_get_theme_option( 'phone', '' ) ); ?&gt;"&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'phone', '' ) ); ?&gt;&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;?php echo wp_kses_post( nl2br( amdin_get_theme_option( 'address', '' ) ) ); ?&gt;&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class="footer-social"&gt;
+            &lt;h3&gt;Follow&lt;/h3&gt;
+            &lt;ul class="social-links"&gt;
+                &lt;?php foreach ( amdin_get_social_links() as $key =&gt; $url ) : ?&gt;
+                    &lt;li&gt;&lt;a href="&lt;?php echo esc_url( $url ); ?&gt;" target="_blank" rel="noopener noreferrer" aria-label="&lt;?php echo esc_attr( ucfirst( $key ) ); ?&gt;"&gt;&lt;?php echo esc_html( ucfirst( $key ) ); ?&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;?php endforeach; ?&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="footer-bottom"&gt;
+        &lt;div class="container"&gt;
+            &lt;p&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'copyright', '© ' . date( 'Y' ) . ' All rights reserved.' ) ); ?&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;
+&lt;?php wp_footer(); ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+          <h3>front-page.php</h3>
+          <pre><code>&lt;?php
+get_header();
+?&gt;
+
+&lt;main id="main-content"&gt;
+    &lt;?php get_template_part( 'template-parts/hero' ); ?&gt;
+    &lt;?php get_template_part( 'template-parts/about' ); ?&gt;
+    &lt;?php get_template_part( 'template-parts/skills' ); ?&gt;
+    &lt;?php get_template_part( 'template-parts/portfolio' ); ?&gt;
+    &lt;?php get_template_part( 'template-parts/testimonials' ); ?&gt;
+    &lt;?php get_template_part( 'template-parts/contact' ); ?&gt;
+&lt;/main&gt;
+
+&lt;?php get_footer(); ?&gt;
+</code></pre>
+
+          <h3>template-parts/hero.php</h3>
+          <pre><code>&lt;?php
+$hero_title = amdin_get_theme_option( 'hero_title', 'Professional Front-End Developer' );
+$hero_desc  = amdin_get_theme_option( 'hero_desc', 'I create responsive and user-friendly digital products.' );
+$primary_label = amdin_get_theme_option( 'hero_primary_label', 'Hire Me' );
+$primary_url   = amdin_get_theme_option( 'hero_primary_url', '#contact' );
+$secondary_label = amdin_get_theme_option( 'hero_secondary_label', 'View Work' );
+$secondary_url   = amdin_get_theme_option( 'hero_secondary_url', '#portfolio' );
+$hero_image    = get_theme_mod( 'amdin_hero_image', '' );
+?&gt;
+&lt;section class="hero" id="home"&gt;
+    &lt;div class="container hero-inner"&gt;
+        &lt;div class="hero-content"&gt;
+            &lt;span class="eyebrow"&gt;Hello, I am&lt;/span&gt;
+            &lt;h1&gt;&lt;?php echo esc_html( $hero_title ); ?&gt;&lt;/h1&gt;
+            &lt;p&gt;&lt;?php echo esc_html( $hero_desc ); ?&gt;&lt;/p&gt;
+            &lt;div class="cta-group"&gt;
+                &lt;a href="&lt;?php echo esc_url( $primary_url ); ?&gt;" class="btn btn-primary"&gt;&lt;?php echo esc_html( $primary_label ); ?&gt;&lt;/a&gt;
+                &lt;a href="&lt;?php echo esc_url( $secondary_url ); ?&gt;" class="btn btn-secondary"&gt;&lt;?php echo esc_html( $secondary_label ); ?&gt;&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="hero-media"&gt;
+            &lt;?php if ( ! empty( $hero_image ) ) : ?&gt;
+                &lt;img src="&lt;?php echo esc_url( $hero_image ); ?&gt;" alt="&lt;?php echo esc_attr( $hero_title ); ?&gt;" /&gt;
+            &lt;?php endif; ?&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+
+          <h3>template-parts/about.php</h3>
+          <pre><code>&lt;?php
+$about_title = amdin_get_theme_option( 'about_title', 'About Me' );
+$about_desc  = amdin_get_theme_option( 'about_desc', '' );
+$about_image = get_theme_mod( 'amdin_about_image', '' );
+?&gt;
+&lt;section id="about" class="about-section"&gt;
+    &lt;div class="container about-grid"&gt;
+        &lt;div class="about-image"&gt;
+            &lt;?php if ( ! empty( $about_image ) ) : ?&gt;
+                &lt;img src="&lt;?php echo esc_url( $about_image ); ?&gt;" alt="&lt;?php echo esc_attr( $about_title ); ?&gt;" /&gt;
+            &lt;?php endif; ?&gt;
+        &lt;/div&gt;
+        &lt;div class="about-content"&gt;
+            &lt;span class="section-tag"&gt;About&lt;/span&gt;
+            &lt;h2&gt;&lt;?php echo esc_html( $about_title ); ?&gt;&lt;/h2&gt;
+            &lt;?php echo wp_kses_post( wpautop( $about_desc ) ); ?&gt;
+            &lt;a href="&lt;?php echo esc_url( home_url( '/contact' ) ); ?&gt;" class="btn btn-primary"&gt;Contact Me&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+
+          <h3>template-parts/skills.php</h3>
+          <pre><code>&lt;?php
+$skills = get_posts(
+    array(
+        'post_type'      =&gt; 'skill',
+        'posts_per_page' =&gt; -1,
+        'post_status'    =&gt; 'publish',
+        'orderby'        =&gt; 'menu_order',
+        'order'          =&gt; 'ASC',
+    )
+);
+?&gt;
+
+&lt;?php if ( ! empty( $skills ) ) : ?&gt;
+    &lt;section id="skills" class="skills-section"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;Skills&lt;/h2&gt;
+            &lt;div class="skills-grid"&gt;
+                &lt;?php foreach ( $skills as $skill ) : ?&gt;
+                    &lt;div class="skill-card"&gt;
+                        &lt;h3&gt;&lt;?php echo esc_html( get_the_title( $skill ) ); ?&gt;&lt;/h3&gt;
+                        &lt;div class="progress"&gt;
+                            &lt;span style="width: &lt;?php echo esc_attr( get_post_meta( $skill-&gt;ID, 'skill_percentage', true ) ?: '90%' ); ?&gt;;&quot;&gt;&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;p&gt;&lt;?php echo esc_html( get_post_meta( $skill-&gt;ID, 'skill_description', true ) ?: '' ); ?&gt;&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;?php endforeach; ?&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+
+          <h3>template-parts/portfolio.php</h3>
+          <pre><code>&lt;?php
+$projects = new WP_Query(
+    array(
+        'post_type'      =&gt; 'project',
+        'post_status'    =&gt; 'publish',
+        'posts_per_page' =&gt; 6,
+        'orderby'        =&gt; 'menu_order',
+        'order'          =&gt; 'ASC',
+    )
+);
+?&gt;
+
+&lt;?php if ( $projects-&gt;have_posts() ) : ?&gt;
+    &lt;section id="portfolio" class="portfolio-section"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;Recent Work&lt;/h2&gt;
+            &lt;div class="portfolio-grid"&gt;
+                &lt;?php while ( $projects-&gt;have_posts() ) : $projects-&gt;the_post(); ?&gt;
+                    &lt;article class="portfolio-card"&gt;
+                        &lt;a href="&lt;?php echo esc_url( get_post_meta( get_the_ID(), 'project_url', true ) ?: get_permalink() ); ?&gt;" target="_blank" rel="noopener noreferrer"&gt;
+                            &lt;?php if ( has_post_thumbnail() ) : ?&gt;
+                                &lt;?php the_post_thumbnail( 'large', array( 'class' =&gt; 'portfolio-image' ) ); ?&gt;
+                            &lt;?php endif; ?&gt;
+                        &lt;/a&gt;
+                        &lt;div class="portfolio-body"&gt;
+                            &lt;h3&gt;&lt;?php the_title(); ?&gt;&lt;/h3&gt;
+                            &lt;p&gt;&lt;?php echo esc_html( amdin_excerpt( get_the_excerpt(), 140 ) ); ?&gt;&lt;/p&gt;
+                            &lt;div class="project-meta"&gt;
+                                &lt;?php $tags = get_the_terms( get_the_ID(), 'category' ); ?&gt;
+                                &lt;?php if ( ! empty( $tags ) ) : ?&gt;
+                                    &lt;?php foreach ( $tags as $tag ) : ?&gt;
+                                        &lt;span&gt;&lt;?php echo esc_html( $tag-&gt;name ); ?&gt;&lt;/span&gt;
+                                    &lt;?php endforeach; ?&gt;
+                                &lt;?php endif; ?&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/article&gt;
+                &lt;?php endwhile; wp_reset_postdata(); ?&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+
+          <h3>template-parts/testimonials.php</h3>
+          <pre><code>&lt;?php
+$testimonials = new WP_Query(
+    array(
+        'post_type'      =&gt; 'testimonial',
+        'post_status'    =&gt; 'publish',
+        'posts_per_page' =&gt; 6,
+        'orderby'        =&gt; 'menu_order',
+        'order'          =&gt; 'ASC',
+    )
+);
+?&gt;
+
+&lt;?php if ( $testimonials-&gt;have_posts() ) : ?&gt;
+    &lt;section id="testimonials" class="testimonials-section"&gt;
+        &lt;div class="container"&gt;
+            &lt;h2&gt;Testimonials&lt;/h2&gt;
+            &lt;div class="testimonial-grid"&gt;
+                &lt;?php while ( $testimonials-&gt;have_posts() ) : $testimonials-&gt;the_post(); ?&gt;
+                    &lt;article class="testimonial-item"&gt;
+                        &lt;div class="quote-mark"&gt;“&lt;/div&gt;
+                        &lt;blockquote&gt;&lt;?php echo esc_html( wp_trim_words( get_the_content(), 30 ) ); ?&gt;&lt;/blockquote&gt;
+                        &lt;div class="client"&gt;
+                            &lt;?php if ( has_post_thumbnail() ) : ?&gt;
+                                &lt;?php the_post_thumbnail( 'thumbnail', array( 'class' =&gt; 'testimonial-thumb' ) ); ?&gt;
+                            &lt;?php endif; ?&gt;
+                            &lt;div&gt;
+                                &lt;h3&gt;&lt;?php the_title(); ?&gt;&lt;/h3&gt;
+                                &lt;p&gt;&lt;?php echo esc_html( get_post_meta( get_the_ID(), 'client_role', true ) ?: '' ); ?&gt;&lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/article&gt;
+                &lt;?php endwhile; wp_reset_postdata(); ?&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
+
+          <h3>template-parts/contact.php</h3>
+          <pre><code>&lt;?php
+if ( ! empty( $_POST ) ) {
+    // handled in functions.php init action
+}
+?&gt;
+&lt;section id="contact" class="contact-section"&gt;
+    &lt;div class="container contact-grid"&gt;
+        &lt;div class="contact-info"&gt;
+            &lt;h2&gt;Contact Me&lt;/h2&gt;
+            &lt;p&gt;Need a professional website or custom web solution? Reach out today.&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="mailto:&lt;?php echo esc_attr( amdin_get_theme_option( 'email', '' ) ); ?&gt;"&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'email', '' ) ); ?&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="tel:&lt;?php echo esc_attr( amdin_get_theme_option( 'phone', '' ) ); ?&gt;"&gt;&lt;?php echo esc_html( amdin_get_theme_option( 'phone', '' ) ); ?&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;?php echo wp_kses_post( nl2br( amdin_get_theme_option( 'address', '' ) ) ); ?&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="contact-form-wrap"&gt;
+            &lt;form id="contact-form" class="contact-form" method="post" novalidate&gt;
+                &lt;?php wp_nonce_field( 'amdin_contact_form', 'amdin_contact_nonce' ); ?&gt;
+                &lt;div class="field"&gt;
+                    &lt;label for="name"&gt;Name&lt;/label&gt;
+                    &lt;input id="name" name="name" type="text" required /&gt;
+                &lt;/div&gt;
+                &lt;div class="field"&gt;
+                    &lt;label for="email"&gt;Email&lt;/label&gt;
+                    &lt;input id="email" name="email" type="email" required /&gt;
+                &lt;/div&gt;
+                &lt;div class="field"&gt;
+                    &lt;label for="subject"&gt;Subject&lt;/label&gt;
+                    &lt;input id="subject" name="subject" type="text" required /&gt;
+                &lt;/div&gt;
+                &lt;div class="field"&gt;
+                    &lt;label for="message"&gt;Message&lt;/label&gt;
+                    &lt;textarea id="message" name="message" rows="5" required&gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+                &lt;button type="submit" class="btn btn-primary"&gt;Send Message&lt;/button&gt;
+                &lt;p class="form-status" aria-live="polite"&gt;&lt;/p&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+
+          <h3>assets/js/main.js</h3>
+          <pre><code>(function () {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', function () {
+            const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', String(!isOpen));
+            mobileMenu.hidden = isOpen;
+        });
+    }
+
+    const form = document.getElementById('contact-form');
+    if (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const status = form.querySelector('.form-status');
+            const inputs = form.querySelectorAll('input, textarea');
+            let valid = true;
+
+            inputs.forEach(function (input) {
+                if (!input.checkValidity()) {
+                    valid = false;
+                }
+            });
+
+            if (!valid) {
+                status.textContent = 'Please complete all required fields correctly.';
+                status.classList.add('error');
+                return;
+            }
+
+            status.textContent = 'Sending...';
+            status.classList.remove('error');
+            status.classList.add('loading');
+
+            setTimeout(function () {
+                status.textContent = 'Thank you. Your message has been sent successfully.';
+                status.classList.remove('loading');
+                form.reset();
+            }, 700);
+        });
+    }
+})();
+</code></pre>
+        </div>
+      </section>
+
+      <section class="section" id="install">
+        <div class="container">
+          <span class="badge">Install &amp; Use</span>
+          <h2>WordPress installation and admin instructions</h2>
+
+          <div class="note">
+            This is the recommended conversion approach: keep the original static HTML/CSS/JS as the visual source-of-truth, then turn it into a custom theme by moving the CSS/JS into the theme assets folder and wiring content into WordPress templates and custom post types.
+          </div>
+
+          <ol>
+            <li>Create the theme folder in <code>wp-content/themes/amdin-theme</code>.</li>
+            <li>Add the files listed in the folder structure.</li>
+            <li>Copy the original CSS into <code>style.css</code> and retain the original responsive rules and animations.</li>
+            <li>Place the original JS into <code>assets/js/main.js</code> and keep the current behavior, then keep the menu and form logic in the theme JS.</li>
+            <li>Upload images to the Media Library and set them in theme settings or page fields.</li>
+            <li>Activate the theme in Appearance → Themes.</li>
+            <li>Create a Home page and set it as Static Front Page in Settings → Reading.</li>
+            <li>Assign the primary menu in Appearance → Menus.</li>
+            <li>Use Theme Settings to populate hero/about/contact/social/footer values.</li>
+            <li>Use Projects and Testimonials menus to add/edit content.</li>
+          </ol>
+
+          <h3>Required plugins</h3>
+          <ul>
+            <li><strong>Rank Math</strong> or <strong>Yoast SEO</strong> only one, for metadata and sitemap support.</li>
+            <li><strong>Site Kit</strong> if analytics/search console is needed.</li>
+            <li>No other plugins unless a specific integration requires it.</li>
+          </ul>
+
+          <h3>Admin workflow</h3>
+          <ul>
+            <li>Appearance → Menus: manage main navigation.</li>
+            <li>Theme Settings: edit hero, about, footer, contact and social links.</li>
+            <li>Projects: add new portfolio projects with featured image and project URL.</li>
+            <li>Testimonials: add quotes with person name, role, image and content.</li>
+            <li>Pages: edit About and Contact pages if needed.</li>
+          </ul>
+
+          <div class="danger">
+            Do not hardcode private API keys or fake analytics IDs. Keep any measurement ID in WordPress settings or environment config, and only use a real ID from the client account.
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
