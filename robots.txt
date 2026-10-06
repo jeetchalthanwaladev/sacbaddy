@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sacbaddy-25y2.vercel.app/sitemap.xml
