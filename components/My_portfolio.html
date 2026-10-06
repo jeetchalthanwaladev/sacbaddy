@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Portfolio</title>
+        <link rel="stylesheet" href="../style/style.css" />
+        <link rel="stylesheet" href="../style/my_portfolio.css" />
+    </head>
+    <body>
+        <section class="portfolio-section" id="portfolio">
+            <div class="portfolio-container">
+                <div class="portfolio-header">
+                    <h2 class="section-tag portfolio-tag">My Portfolio.</h2>
+                </div>
+
+                <div class="portfolio-filter-nav" role="tablist" aria-label="Portfolio Categories">
+                    <button class="filter-btn active" data-filter="all" type="button" role="tab" aria-selected="true">
+                        All
+                        <span class="active-indicator"></span>
+                    </button>
+                    <button class="filter-btn" data-filter="branding" type="button" role="tab" aria-selected="false">
+                        Branding
+                        <span class="active-indicator"></span>
+                    </button>
+                    <button class="filter-btn" data-filter="photography" type="button" role="tab" aria-selected="false">
+                        Photography
+                        <span class="active-indicator"></span>
+                    </button>
+                    <button class="filter-btn" data-filter="fashion" type="button" role="tab" aria-selected="false">
+                        Fashion
+                        <span class="active-indicator"></span>
+                    </button>
+                    <button class="filter-btn" data-filter="product" type="button" role="tab" aria-selected="false">
+                        Product
+                        <span class="active-indicator"></span>
+                    </button>
+                </div>
+
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Column 1 Items -->
+                    <div class="portfolio-card" data-category="all fashion photography branding" tabindex="0" role="button" aria-label="Curology Skincare">
+                        <img src="../src/portfolio/1.jpg" alt="Curology Skincare model portrait" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">Curology Skincare</h3>
+                                <span class="portfolio-cat">Fashion / Photography</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all product branding" tabindex="0" role="button" aria-label="Goby Blue Edition">
+                        <img src="../src/portfolio/4.jpg" alt="Goby toothbrush on blue gift box" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">Goby Blue Edition</h3>
+                                <span class="portfolio-cat">Product / Branding</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all product fashion photography" tabindex="0" role="button" aria-label="LARQ PureVis Coral">
+                        <img src="../src/portfolio/7.jpg" alt="LARQ water bottle and tennis racket" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">LARQ PureVis Coral</h3>
+                                <span class="portfolio-cat">Product / Fashion</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all branding product" tabindex="0" role="button" aria-label="Honest Beauty Primer">
+                        <img src="../src/portfolio/2.jpg" alt="Honest Beauty Primer and potted plant" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">Honest Beauty Primer</h3>
+                                <span class="portfolio-cat">Branding / Product</span>
+                            </div>
+                           <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all product photography" tabindex="0" role="button" aria-label="LARQ Bottle Botanical">
+                        <img src="../src/portfolio/5.jpg" alt="LARQ water bottle with sliced orange" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">LARQ Bottle Botanical</h3>
+                                <span class="portfolio-cat">Product / Photography</span>
+                            </div>
+                           <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all product fashion" tabindex="0" role="button" aria-label="GOBY Rose Pink Brush">
+                        <img src="../src/portfolio/8.jpg" alt="Hand holding pink electric toothbrush" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">GOBY Rose Pink</h3>
+                                <span class="portfolio-cat">Product / Fashion</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all fashion photography" tabindex="0" role="button" aria-label="Urban Sportswear">
+                        <img src="../src/portfolio/3.jpg" alt="Runner ascending yellow staircase" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">Urban Sportswear</h3>
+                                <span class="portfolio-cat">Fashion / Photography</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all branding photography" tabindex="0" role="button" aria-label="The Doodle Club Notebook">
+                        <img src="../src/portfolio/6.jpg" alt="The Doodle Club illustrated notebook" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">The Doodle Club</h3>
+                                <span class="portfolio-cat">Branding / Illustration</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-category="all product branding photography" tabindex="0" role="button" aria-label="Aero Fixed Gear Bike">
+                        <img src="../src/portfolio/9.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                        <div class="portfolio-overlay">
+                            <div class="portfolio-info">
+                                <h3 class="portfolio-title">Aero Fixed Gear</h3>
+                                <span class="portfolio-cat">Product / Photography</span>
+                            </div>
+                            <div class="portfolio-icon" aria-hidden="true">
+                                <img src="../src/portfolio/open.jpg" alt="Aero fixed gear bicycle close-up" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
