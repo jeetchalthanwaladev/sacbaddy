@@ -1,0 +1,315 @@
+/*
+Theme Name: Sakbaddy
+Theme URI: https://sacbaddy-25y2.vercel.app/
+Author: Sakshi Shah
+Author URI: https://sacbaddy-25y2.vercel.app/
+Description: A modern, elegant portfolio and personal brand WordPress theme with responsive design, dynamic projects portfolio, testimonials slider, education & skills showcase, and comprehensive Customizer CMS options.
+Version: 1.0.0
+Requires at least: 5.8
+Tested up to: 6.7
+Requires PHP: 7.4
+Text Domain: sakbaddy
+Tags: portfolio, blog, custom-header, custom-menu, featured-images, theme-options, translation-ready
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rubik:wght@500;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f7f7ff;
+    color: #111018;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+button, input, textarea, select {
+    font-family: inherit;
+}
+
+/* Accessibility & Screen Reader Text */
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    clip-path: none;
+    color: #111;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+}
+
+/* WordPress Alignment & Media Classes */
+.alignleft {
+    float: left;
+    margin-right: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.alignright {
+    float: right;
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.aligncenter {
+    clear: both;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5em;
+}
+
+.wp-caption {
+    margin-bottom: 1.5em;
+    max-width: 100%;
+    text-align: center;
+}
+
+.wp-caption-text {
+    font-size: 0.85rem;
+    color: #727079;
+    margin-top: 0.5em;
+}
+
+/* Reusable Section Headers & Elements */
+.section-tag {
+    position: relative;
+    display: block;
+    width: fit-content;
+    font-size: 1.90rem;
+    font-weight: 900;
+    line-height: 1.35;
+    color: #111018;
+    margin: 0 0 25px;
+    z-index: 0;
+}
+
+.section-tag::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 40px;
+    height: 40px;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: #ffc477;
+}
+
+/* Decorative Wave Divider */
+.about-wave,
+.testimonials-wave {
+    width: min(100%, 1000px);
+    height: 12px;
+    margin: 0 auto 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' width='40' height='10' viewBox='0 0 40 10'%3E%3Cpath d='M0 5 Q5 0 10 5 T20 5 T30 5 T40 5' fill='none' stroke='%23d6d6dd' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 40px 10px;
+}
+
+.about-wave-bottom {
+    margin-top: 75px;
+    margin-bottom: 73px;
+}
+
+.testimonials-wave-bottom {
+    margin-top: 75px;
+    margin-bottom: 70px;
+}
+
+/* Mobile Nav Toggle */
+.nav-toggle {
+    display: none;
+}
+
+/* Contact Form Feedback Messages */
+.form-feedback {
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.form-feedback.success {
+    display: block;
+    background: #e6f9ed;
+    color: #127938;
+    border: 1px solid #b8eccc;
+}
+
+.form-feedback.error {
+    display: block;
+    background: #fde8e8;
+    color: #bc1c21;
+    border: 1px solid #f8b4b4;
+}
+
+/* General Layout for standard inner pages */
+.site-main-content {
+    min-height: calc(100vh - 200px);
+    padding: 60px clamp(24px, 5vw, 120px);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-hero-banner {
+    padding: 60px clamp(24px, 5vw, 120px);
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
+}
+
+.page-hero-banner h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #111018;
+}
+
+.page-hero-banner p {
+    color: #626166;
+    margin-top: 8px;
+    font-size: 1.05rem;
+}
+
+/* Single Project & Blog Post Styling */
+.single-post-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.single-post-meta {
+    display: flex;
+    gap: 16px;
+    color: #727079;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.single-post-content {
+    line-height: 1.8;
+    font-size: 1.05rem;
+    color: #374151;
+}
+
+.single-post-content h2,
+.single-post-content h3 {
+    margin: 1.5em 0 0.5em;
+    color: #111018;
+}
+
+.single-post-content p {
+    margin-bottom: 1.25em;
+}
+
+.project-meta-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px 30px;
+    margin: 30px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.project-meta-item strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ff9000;
+    margin-bottom: 4px;
+}
+
+.project-meta-item span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111018;
+}
+
+.btn-group {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.btn-view-project {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ff9000;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-view-project:hover {
+    background: #e07f00;
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.btn-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #111018;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-github:hover {
+    background: #272727;
+    transform: translateY(-2px);
+    color: #ffffff;
+}
